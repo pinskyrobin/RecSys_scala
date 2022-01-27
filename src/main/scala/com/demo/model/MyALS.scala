@@ -46,6 +46,8 @@ class MyALS(private val rank: Int = 30,
 	  t => ((t.user, t.product), t.rating)
 	)
 
+	// for each line, the first pair refers to one user and one product,
+	// while the second refers to predicting rate and real rate
 	val ratings = predictionRate.join(testRate).values
 
 	math.sqrt(ratings.map(x => (x._1 - x._2) * (x._1 - x._2)).reduce(_ + _) / test.count())
@@ -75,12 +77,14 @@ class MyALS(private val rank: Int = 30,
 
 	val item = trainDict.union(testDict)
 
+	// collect all products
 	item.foreach(
 	  t => {
 		itemAcc.add(t._2.toSet)
 	  }
 	)
 
+	// collect all predictions
 	predictionDict.foreach(
 	  t =>
 		recItemAcc.add(t._2.toSet)
@@ -89,6 +93,7 @@ class MyALS(private val rank: Int = 30,
 	var itemSet: mutable.Set[Int] = mutable.Set()
 	var recItemSet: mutable.Set[Int] = mutable.Set()
 
+	// convert to a huge set
 	recItemAcc.value.forEach(
 	  t => recItemSet = recItemSet ++ t
 	)
@@ -116,7 +121,7 @@ class MyALS(private val rank: Int = 30,
 		  val negative = new ArrayBuffer[Int]()
 		  val allItemIDs = _allItemIDs.value
 		  var i = 0
-		  // keep about as many negative examples per user as positive.
+		  // keep about as many negative examples per user as positive
 		  while (i < allItemIDs.length && negative.size < posItemIDSet.size) {
 			val itemID = allItemIDs(random.nextInt(allItemIDs.length))
 			if (!posItemIDSet.contains(itemID)) {
@@ -219,8 +224,8 @@ class MyALS(private val rank: Int = 30,
 		(t._1.toSet, t._2.toSet)
 	).cache()
 
-	val testLength = test.count()
-	val predLength = predictionDict.count()
+//	val testLength = test.count()
+//	val predLength = predictionDict.count()
 
 	resMap += "RMSE" -> _calRMSE(test, predictionDict)
 //	resMap += "precision" -> _calPrecision(sc, predLength, dict)
