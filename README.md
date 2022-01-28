@@ -8,7 +8,7 @@
 
 #### 构造函数
 
-模型的构造函数含有以下参数
+模型的构造函数含有以下参数：
 
 | 参数名     | 含义                 | 默认值         |
 | ---------- | -------------------- | -------------- |
@@ -28,7 +28,7 @@
 
 #### 评估函数 score()
 
-评估函数接受如下参数
+评估函数接受如下参数：
 
 | 参数名         | 含义                            |
 | -------------- | ------------------------------- |
@@ -54,7 +54,7 @@
 
 最终的评测使用 [movielens: ml-latest](https://files.grouplens.org/datasets/movielens/ml-latest.zip) ，该数据集包括 283,228 位用户对 58,000 余部电影的共计 27,753,445 条评价信息。
 
-数据集按 7 : 3 的比例划分数据集与测试集，进行以下 12组实验。
+数据集按 7 : 3 的比例划分数据集与测试集，进行以下 12 组实验：
 
 | 组别   | rank   | iterations | lambda   | predictNum | RMSE       | AUC        | coverage   |
 | ------ | ------ | ---------- | -------- | ---------- | ---------- | ---------- | ---------- |
@@ -145,7 +145,7 @@ List(1, 2, 2, 432, 5, 345, 34, 56, 34, 6).foreach(
 
 #### 未序列化问题
 
-尝试将 `RDD[Int, Iterable[Int]]` 中的 `Iterable[Int]` 转换为 `RDD[Int]`，以便于进行求取交集的操作，但出现如下错误。
+尝试将 `RDD[Int, Iterable[Int]]` 中的 `Iterable[Int]` 转换为 `RDD[Int]`，以便于进行求取交集的操作，但出现如下错误：
 
 ```
 Exception in thread “main” org.apache.spark.SparkException: Task not serializable
@@ -166,7 +166,7 @@ Exception in thread “main” org.apache.spark.SparkException: Task not seriali
 println(1 / 3)
 println(1.0 / 3)
 println(1.toLong / 3)
-println(1.toDougle / 3)
+println(1.toDouble / 3)
 ```
 
 第一个和第三个均输出 0，第二个和第四个有理想输出 0.3333...，因此计算时应使用 `.toDouble` 来确保除法的正确性。
